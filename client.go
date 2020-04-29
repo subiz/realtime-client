@@ -47,8 +47,7 @@ func (me *Client) Send(accid string, topics []string, payload []byte) error {
 	}
 	ctx := context.Background()
 
-	_, err = client.Publish(ctx, &pb.PublishMessage{Payload: payload, Topics: topics})
-
+	_, err = client.Publish(ctx, &pb.PublishMessage{AccountId: accid, Payload: payload, Topics: topics})
 	return err
 }
 
