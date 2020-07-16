@@ -10,9 +10,8 @@ import (
 	"time"
 
 	"github.com/subiz/header"
-	pb "github.com/subiz/header/pubsub"
+	pb "github.com/subiz/header/realtime"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/balancer/roundrobin"
 )
 
 // Client helps you send message to realtime service easier
@@ -82,7 +81,6 @@ func dialGrpc(service string) (*grpc.ClientConn, error) {
 	// Enabling WithBlock tells the client to not give up trying to find a server
 	opts = append(opts, grpc.WithBlock())
 	// However, we're still setting a timeout so that if the server takes too long, we still give up
-	opts = append(opts, grpc.WithTimeout(10*time.Second))
-	opts = append(opts, grpc.WithBalancerName(roundrobin.Name))
+	opts = append(opts, grpc.WithTimeout(120*time.Second))
 	return grpc.Dial(service, opts...)
 }
